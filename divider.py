@@ -1,19 +1,14 @@
-from pydub import AudioSegment
+from pydub import AudioSegment, silence
+from pydub.silence import split_on_silence
 import os
 
-def divide(input_file):
-    output_dir = f"output_segments_{input_file.split('.wav')[0]}"
-    os.makedirs(output_dir, exist_ok=True)
-    audio = AudioSegment.from_file(input_file, format="wav")
-    segment_duration = 6000  # 6 seconds
-    start_time = 0
-    segment_number = 1
-    while start_time + segment_duration <= len(audio):
-        segment = audio[start_time:start_time + segment_duration]
-        output_file = os.path.join(output_dir, f"segment_{segment_number}.wav")
-        segment.export(output_file, format="wav")
-        start_time += segment_duration
-        segment_number += 1
-
-    print(f"{segment_number - 1} segments created in '{output_dir}'")
+def divide(input_wav_file):
+    sound = AudioSegment.from_wav(input_wav_file)
+    output_dir = f"output_segments_{input_wav_file.split('.wav')[0]}"
+    os.mkdir(output_dir)
+    audio_chunks = split_on_silence(sound, min_silence_len=200, silence_thresh=-40 )
+    for i, chunk in enumerate(audio_chunks):
+        output_file = f"{output_dir}/f{i}.wav"
+        print("Exporting file", output_file)
+        chunk.export(output_file, format="wav")
     return output_dir
