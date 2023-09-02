@@ -1,5 +1,7 @@
-# Audio Cutter for cutting long audio files into 1-10 sec packs, providing also transcribtion for them usinh whisper.
-# It's useful for Machine Learning related to audio recognition.
+### Audio Cutter for cutting long audio files into 1-10 sec packs, providing also transcribtion for them usinh whisper.
+It's useful for Machine Learning related to audio recognition.
+
+---
 
 pip install -r requirements.txt
 
