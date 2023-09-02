@@ -6,7 +6,7 @@ import torch
 torch.cuda.is_available()
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-print('Wait until model is loaded...')
+print('Wait until model is loaded...', f'device is {DEVICE}')
 model = whisper.load_model("medium", device=DEVICE)
 print(
     f"Model is {'multilingual' if model.is_multilingual else 'English-only'} "
