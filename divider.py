@@ -10,11 +10,14 @@ def divide(input_wav_file, output_path):
         
     audio_chunks = split_on_silence(sound, min_silence_len=200, silence_thresh=-50 )
     i = 0
+    silence_chunk = AudioSegment.silent(duration=200)
+
     for chunk in audio_chunks:
         if len(chunk) < 1000:
             continue
         output_file = f"{output_dir}/f{i}.wav"
         print(f"Exporting file: {output_file}, length is {len(chunk)}")
-        chunk.export(output_file, format="wav")
+        final_chunk = silence_chunk + chunk + silence_chunk
+        final_chunk.export(output_file, format="wav")
         i += 1
     return output_dir

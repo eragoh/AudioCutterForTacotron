@@ -22,7 +22,7 @@ def convert_to_txt(file_name):
     options = whisper.DecodingOptions(language="pl", without_timestamps=True, fp16 = False)
     result = whisper.decode(model, mel, options)
     result = model.transcribe(file_name)
-    with open(file_name.replace('.wav', '.txt'), 'w') as f:
+    with open(file_name.replace('.wav', '.txt'), 'w', encoding='utf-8') as f:
         f.write(result['text'])
 
 def convert(dir_path):
