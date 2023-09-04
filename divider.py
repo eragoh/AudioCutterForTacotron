@@ -11,6 +11,7 @@ def divide(input_wav_file, output_path):
     audio_chunks = split_on_silence(sound, min_silence_len=200, silence_thresh=-50 )
     i = 0
     silence_chunk = AudioSegment.silent(duration=200)
+
     for chunk in audio_chunks:
         if len(chunk) < 1000:
             continue
